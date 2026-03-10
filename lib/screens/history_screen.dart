@@ -58,8 +58,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ApiUrl.ordersUrl,
       ).replace(queryParameters: {'user_id': userId});
 
-      print('📥 Loading orders for user_id: $userId');
-      print('🌐 Orders URL: $uri');
+      debugPrint('📥 Loading orders for user_id: $userId');
+      debugPrint('🌐 Orders URL: $uri');
 
       final response = await http.get(
         uri,
@@ -70,8 +70,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
         },
       );
 
-      print('📥 Response status: ${response.statusCode}');
-      print('📥 Response body: ${response.body}');
+      debugPrint('📥 Response status: ${response.statusCode}');
+      debugPrint('📥 Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
@@ -88,7 +88,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             _isLoading = false;
           });
 
-          print('✅ Loaded ${_orders.length} orders');
+          debugPrint('✅ Loaded ${_orders.length} orders');
         } else {
           setState(() {
             _errorMessage = responseData['message'] ?? 'Failed to load orders';
@@ -241,7 +241,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -288,7 +288,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: _getStatusColor(order.status).withOpacity(0.1),
+                    color: _getStatusColor(order.status).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
